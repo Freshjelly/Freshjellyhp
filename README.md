@@ -1,36 +1,161 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 FreshJelly Portfolio Website
 
-## Getting Started
+> Digital Craftsmanship with a Human Touch
 
-First, run the development server:
+美しい3Dアニメーションとインタラクティブな体験を組み合わせた、モダンなポートフォリオウェブサイト
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## ✨ 特徴
+
+### 🎨 デザイン・UX
+- **インタラクティブ3Dオブジェクト** - Three.jsによるF字型キューブフォーメーション
+- **パーティクルシステム** - マウス追従エフェクトで没入感を演出
+- **スムーズなアニメーション** - Framer Motionによる洗練された動き
+- **レスポンシブデザイン** - あらゆるデバイスに対応
+
+### 🛠️ 技術的特徴
+- **モダンな技術スタック** - Next.js 15 + TypeScript
+- **高いパフォーマンス** - 最適化されたビルドサイズ（141KB）
+- **アクセシビリティ対応** - WCAG準拠、キーボードナビゲーション
+- **SEO最適化** - メタデータ、構造化データ対応
+
+## 🎯 ページ構成
+
+### 🏠 Home
+- ヒーローセクション（3Dアニメーション）
+- サービス紹介
+- スクロールトリガーアニメーション
+
+### 👤 About  
+- スキルチャート（アニメーション付き）
+- キャリアタイムライン
+- 趣味・関心事
+
+### 💼 Work
+- プロジェクトカード（ホバーエフェクト）
+- カテゴリフィルタリング
+- 技術スタック表示
+
+### 📝 Blog
+- 記事一覧（マソンリーレイアウト）
+- カテゴリ別フィルター
+- ニュースレター購読
+
+## 🎨 デザインシステム
+
+### カラーパレット
+```css
+--color-dark-navy: #1A202C       /* メイン背景 */
+--color-trust-blue: #4299E1      /* アクセントカラー */
+--color-warm-orange: #ED8936     /* セカンダリアクセント */
+--color-off-white: #F7FAFC       /* テキスト・背景 */
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### タイポグラフィ
+- **日本語**: Noto Sans JP
+- **英語見出し**: Montserrat / Poppins
+- **レスポンシブフォントサイズ**: clamp()使用
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 技術スタック
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### フロントエンド
+- **Next.js 15** - React フレームワーク
+- **TypeScript** - 型安全性
+- **TailwindCSS** - ユーティリティファーストCSS
 
-## Learn More
+### アニメーション・3D
+- **Three.js** - 3Dレンダリング
+- **@react-three/fiber** - React Three.js ラッパー
+- **@react-three/drei** - Three.js ヘルパー
+- **Framer Motion** - アニメーションライブラリ
 
-To learn more about Next.js, take a look at the following resources:
+### 開発・品質
+- **ESLint** - コード品質
+- **TypeScript** - 型チェック
+- **Git** - バージョン管理
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📦 インストール・セットアップ
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 前提条件
+- Node.js 18.0.0 以上
+- npm または yarn
 
-## Deploy on Vercel
+### クローン・インストール
+```bash
+# リポジトリをクローン
+git clone https://github.com/Freshjelly/Freshjellyhp.git
+cd Freshjellyhp
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# 依存関係をインストール
+npm install
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# 開発サーバーを起動
+npm run dev
+```
+
+### スクリプト
+```bash
+npm run dev      # 開発サーバー起動
+npm run build    # 本番ビルド
+npm run start    # 本番サーバー起動
+npm run lint     # ESLintチェック
+```
+
+## 🌐 デプロイ
+
+### Vercel（推奨）
+```bash
+# Vercel CLIでデプロイ
+npm i -g vercel
+vercel --prod
+```
+
+### 手動デプロイ
+1. [Vercel](https://vercel.com)にアクセス
+2. GitHubリポジトリを連携
+3. 自動デプロイ開始
+
+## 📊 パフォーマンス
+
+### ビルドサイズ
+```
+Route (app)                Size  First Load JS
+┌ ○ /                   4.19 kB      141 kB
+├ ○ /about             2.99 kB      140 kB  
+├ ○ /work              3.05 kB      140 kB
+└ ○ /blog              3.29 kB      140 kB
+```
+
+### 最適化項目
+- ✅ コード分割（動的インポート）
+- ✅ 画像最適化（Next.js Image）
+- ✅ フォント最適化
+- ✅ Three.js遅延読み込み
+- ✅ Critical CSS
+
+## 🎯 アクセシビリティ
+
+### 対応項目
+- ✅ キーボードナビゲーション
+- ✅ スクリーンリーダー対応
+- ✅ ARIAラベル
+- ✅ カラーコントラスト（WCAG AA準拠）
+- ✅ フォーカス管理
+- ✅ reduced-motion対応
+
+## 📝 ライセンス
+
+MIT License - 詳細は [LICENSE](LICENSE) ファイルを参照
+
+## 👨‍💻 作成者
+
+**FreshJelly**
+- GitHub: [@Freshjelly](https://github.com/Freshjelly)
+- Portfolio: [freshjelly.dev](https://freshjelly.dev)
+
+---
+
+## 🤖 Generated with Claude Code
+
+このプロジェクトは [Claude Code](https://claude.ai/code) を使用して作成されました。
+
+Co-Authored-By: Claude <noreply@anthropic.com>
