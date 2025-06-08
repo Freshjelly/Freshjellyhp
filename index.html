@@ -4,566 +4,301 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FreshJelly - Digital Craftsmanship with a Human Touch</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            background: #1A202C;
-            color: #F7FAFC;
-            overflow-x: hidden;
-        }
-        
-        /* Navigation */
-        .nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(26, 32, 44, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            padding: 1rem 2rem;
-            transition: all 0.3s ease;
-        }
-        
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #F7FAFC;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        
-        .logo:hover {
-            color: #4299E1;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-        
-        .nav-links a {
-            color: #F7FAFC;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-        
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #4299E1, #ED8936);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-        
-        .nav-links a:hover {
-            color: #ED8936;
-        }
-        
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            background: linear-gradient(135deg, #1A202C 0%, #2D3748 50%, #1A202C 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 25%;
-            left: 25%;
-            width: 300px;
-            height: 300px;
-            background: rgba(66, 153, 225, 0.1);
-            border-radius: 50%;
-            filter: blur(100px);
-        }
-        
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: 25%;
-            right: 25%;
-            width: 400px;
-            height: 400px;
-            background: rgba(237, 137, 54, 0.1);
-            border-radius: 50%;
-            filter: blur(100px);
-        }
-        
-        .hero-content {
-            text-align: center;
-            z-index: 10;
-            animation: fadeInUp 1s ease-out;
-        }
-        
-        .hero h1 {
-            font-size: 4rem;
-            font-weight: bold;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(90deg, #F7FAFC, #4299E1, #ED8936, #F7FAFC);
-            background-size: 200% 100%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradientShift 3s ease-in-out infinite;
-        }
-        
-        .hero p {
-            font-size: 1.25rem;
-            color: rgba(247, 250, 252, 0.8);
-            font-weight: 300;
-            letter-spacing: 0.05em;
-            animation: fadeInUp 1s ease-out 0.5s both;
-        }
-        
-        .cube-container {
-            position: absolute;
-            right: 10%;
-            top: 50%;
-            transform: translateY(-50%);
-            animation: fadeInRight 1.5s ease-out;
-        }
-        
-        .cube {
-            width: 200px;
-            height: 200px;
-            position: relative;
-            transform-style: preserve-3d;
-            animation: rotateCube 20s infinite linear;
-        }
-        
-        .cube-face {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            background: rgba(66, 153, 225, 0.2);
-            border: 2px solid #4299E1;
-            backdrop-filter: blur(10px);
-        }
-        
-        .front { transform: rotateY(0deg) translateZ(100px); }
-        .back { transform: rotateY(180deg) translateZ(100px); }
-        .right { transform: rotateY(90deg) translateZ(100px); }
-        .left { transform: rotateY(-90deg) translateZ(100px); }
-        .top { transform: rotateX(90deg) translateZ(100px); }
-        .bottom { transform: rotateX(-90deg) translateZ(100px); }
-        
-        .scroll-indicator {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: rgba(247, 250, 252, 0.7);
-            animation: fadeInUp 1s ease-out 1s both;
-        }
-        
-        .scroll-text {
-            font-size: 0.875rem;
-            margin-bottom: 0.5rem;
-            font-weight: 300;
-            letter-spacing: 0.1em;
-        }
-        
-        .scroll-line {
-            width: 1px;
-            height: 3rem;
-            background: linear-gradient(to bottom, #4299E1, transparent);
-            margin-bottom: 0.5rem;
-        }
-        
-        .scroll-dot {
-            width: 8px;
-            height: 8px;
-            background: #4299E1;
-            border-radius: 50%;
-            animation: bounce 2s infinite;
-        }
-        
-        /* Services Section */
-        .services {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #F7FAFC 0%, #FFFFFF 50%, #F7FAFC 100%);
-            padding: 5rem 2rem;
-            position: relative;
-        }
-        
-        .services::before {
-            content: '';
-            position: absolute;
-            top: 5rem;
-            left: 2.5rem;
-            width: 300px;
-            height: 300px;
-            background: rgba(66, 153, 225, 0.05);
-            border-radius: 50%;
-            filter: blur(100px);
-        }
-        
-        .services::after {
-            content: '';
-            position: absolute;
-            bottom: 5rem;
-            right: 2.5rem;
-            width: 400px;
-            height: 400px;
-            background: rgba(237, 137, 54, 0.05);
-            border-radius: 50%;
-            filter: blur(100px);
-        }
-        
-        .services-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 10;
-        }
-        
-        .services-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-        
-        .services h2 {
-            font-size: 3.5rem;
-            font-weight: bold;
-            color: #1A202C;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #1A202C, #4299E1, #ED8936);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .services-subtitle {
-            font-size: 1.25rem;
-            color: #4A5568;
-            max-width: 800px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-        
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 2rem;
-        }
-        
-        .service-card {
-            background: #FFFFFF;
-            border-radius: 1rem;
-            padding: 2rem;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .service-card::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, #4299E1, #ED8936);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s ease;
-        }
-        
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-        }
-        
-        .service-card:hover::before {
-            transform: scaleX(1);
-        }
-        
-        .service-icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            display: inline-block;
-            transition: transform 0.3s ease;
-        }
-        
-        .service-card:hover .service-icon {
-            transform: scale(1.1);
-        }
-        
-        .service-card h3 {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #1A202C;
-            margin-bottom: 1rem;
-            transition: color 0.3s ease;
-        }
-        
-        .service-card:hover h3 {
-            color: #4299E1;
-        }
-        
-        .service-card p {
-            color: #4A5568;
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-        
-        .service-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-        
-        .service-tag {
-            padding: 0.5rem 1rem;
-            background: linear-gradient(90deg, rgba(66, 153, 225, 0.1), rgba(237, 137, 54, 0.1));
-            color: #2D3748;
-            font-size: 0.875rem;
-            border-radius: 9999px;
-            font-weight: 500;
-            border: 1px solid rgba(66, 153, 225, 0.2);
-            transition: all 0.3s ease;
-        }
-        
-        .service-card:hover .service-tag {
-            background: linear-gradient(90deg, rgba(66, 153, 225, 0.2), rgba(237, 137, 54, 0.2));
-            transform: scale(1.05);
-        }
-        
-        .cta-button {
-            display: inline-block;
-            margin-top: 3rem;
-            padding: 1rem 2rem;
-            background: linear-gradient(90deg, #4299E1, #ED8936);
-            color: white;
-            font-weight: 600;
-            border-radius: 9999px;
-            text-decoration: none;
-            box-shadow: 0 10px 20px rgba(66, 153, 225, 0.3);
-            transition: all 0.3s ease;
-        }
-        
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 30px rgba(66, 153, 225, 0.4);
-        }
-        
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary': '#3B82F6',
+                        'primary-hover': '#2563EB',
+                        'text-primary': '#111827',
+                        'text-secondary': '#6B7280',
+                        'bg-secondary': '#F3F4F6',
+                    }
+                }
             }
         }
-        
-        @keyframes fadeInRight {
-            from {
-                opacity: 0;
-                transform: translateX(50px) translateY(-50%);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0) translateY(-50%);
-            }
-        }
-        
-        @keyframes rotateCube {
-            from {
-                transform: rotateX(0deg) rotateY(0deg);
-            }
-            to {
-                transform: rotateX(360deg) rotateY(360deg);
-            }
-        }
-        
-        @keyframes gradientShift {
-            0%, 100% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-        }
-        
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            40% {
-                transform: translateY(-10px);
-            }
-            60% {
-                transform: translateY(-5px);
-            }
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .cube-container {
-                display: none;
-            }
-            
-            .services h2 {
-                font-size: 2.5rem;
-            }
-            
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    </script>
 </head>
-<body>
+<body class="font-inter antialiased">
     <!-- Navigation -->
-    <nav class="nav">
-        <div class="nav-container">
-            <a href="#" class="logo">FreshJelly</a>
-            <ul class="nav-links">
-                <li><a href="#home">HOME</a></li>
-                <li><a href="#about">ABOUT</a></li>
-                <li><a href="#work">WORK</a></li>
-                <li><a href="#blog">BLOG</a></li>
-            </ul>
+    <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-sm border-b border-gray-200 z-50">
+        <div class="max-w-5xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="font-bold text-xl text-text-primary">
+                    FreshJelly
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-text-secondary hover:text-text-primary transition-colors duration-200 font-medium">Home</a>
+                    <a href="#services" class="text-text-secondary hover:text-text-primary transition-colors duration-200 font-medium">Services</a>
+                    <a href="#about" class="text-text-secondary hover:text-text-primary transition-colors duration-200 font-medium">About</a>
+                    <a href="#contact" class="text-text-secondary hover:text-text-primary transition-colors duration-200 font-medium">Contact</a>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button class="text-text-secondary hover:text-text-primary">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>アイデアを、<br/>コードで形に。</h1>
-            <p>Digital Craftsmanship with a Human Touch</p>
-        </div>
-        
-        <div class="cube-container">
-            <div class="cube">
-                <div class="cube-face front"></div>
-                <div class="cube-face back"></div>
-                <div class="cube-face right"></div>
-                <div class="cube-face left"></div>
-                <div class="cube-face top"></div>
-                <div class="cube-face bottom"></div>
+    <section id="home" class="bg-white pt-24 pb-24">
+        <div class="max-w-5xl mx-auto px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-5xl lg:text-6xl font-bold text-text-primary mb-6 leading-tight">
+                    アイデアを、<br class="hidden sm:block">コードで形に。
+                </h1>
+                <p class="text-lg lg:text-xl text-text-secondary mb-8 max-w-2xl mx-auto leading-relaxed">
+                    Digital Craftsmanship with a Human Touch
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button class="bg-primary hover:bg-primary-hover text-white font-semibold px-8 py-3 rounded-lg transition-colors duration-200">
+                        プロジェクトを見る
+                    </button>
+                    <button class="border border-gray-300 text-text-primary hover:bg-gray-50 font-semibold px-8 py-3 rounded-lg transition-colors duration-200">
+                        お問い合わせ
+                    </button>
+                </div>
             </div>
-        </div>
-        
-        <div class="scroll-indicator">
-            <span class="scroll-text">SCROLL</span>
-            <div class="scroll-line"></div>
-            <div class="scroll-dot"></div>
         </div>
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="services">
-        <div class="services-container">
-            <div class="services-header">
-                <h2>Services</h2>
-                <p class="services-subtitle">
-                    最新技術と創造性を融合させ、あなたのビジョンを現実に変える<br/>
+    <section id="services" class="bg-slate-50 py-24">
+        <div class="max-w-5xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-text-primary mb-4">
+                    Services
+                </h2>
+                <p class="text-lg text-text-secondary max-w-3xl mx-auto">
+                    最新技術と創造性を融合させ、あなたのビジョンを現実に変える<br>
                     プロフェッショナルなデジタルソリューションを提供します
                 </p>
             </div>
             
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">🚀</div>
-                    <h3>ウェブ開発</h3>
-                    <p>モダンな技術スタックを使用したレスポンシブWebアプリケーションの設計・開発</p>
-                    <div class="service-tags">
-                        <span class="service-tag">React</span>
-                        <span class="service-tag">Next.js</span>
-                        <span class="service-tag">TypeScript</span>
-                        <span class="service-tag">TailwindCSS</span>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Web Development Card -->
+                <div class="bg-white rounded-lg p-8 shadow-md transition-transform duration-300 hover:-translate-y-1">
+                    <div class="mb-6">
+                        <svg class="w-12 h-12 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-text-primary mb-4">
+                        ウェブ開発
+                    </h3>
+                    <p class="text-text-secondary mb-6 leading-relaxed">
+                        モダンな技術スタックを使用したレスポンシブWebアプリケーションの設計・開発
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-blue-50 text-primary text-sm rounded-full font-medium">React</span>
+                        <span class="px-3 py-1 bg-blue-50 text-primary text-sm rounded-full font-medium">Next.js</span>
+                        <span class="px-3 py-1 bg-blue-50 text-primary text-sm rounded-full font-medium">TypeScript</span>
+                        <span class="px-3 py-1 bg-blue-50 text-primary text-sm rounded-full font-medium">Tailwind CSS</span>
                     </div>
                 </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">🎨</div>
-                    <h3>UI/UXデザイン</h3>
-                    <p>ユーザー中心設計に基づいた直感的で美しいインターフェースデザイン</p>
-                    <div class="service-tags">
-                        <span class="service-tag">Figma</span>
-                        <span class="service-tag">Adobe XD</span>
-                        <span class="service-tag">Framer</span>
-                        <span class="service-tag">Principle</span>
+
+                <!-- UI/UX Design Card -->
+                <div class="bg-white rounded-lg p-8 shadow-md transition-transform duration-300 hover:-translate-y-1">
+                    <div class="mb-6">
+                        <svg class="w-12 h-12 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-text-primary mb-4">
+                        UI/UXデザイン
+                    </h3>
+                    <p class="text-text-secondary mb-6 leading-relaxed">
+                        ユーザー中心設計に基づいた直感的で美しいインターフェースデザイン
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-blue-50 text-primary text-sm rounded-full font-medium">Figma</span>
+                        <span class="px-3 py-1 bg-blue-50 text-primary text-sm rounded-full font-medium">Adobe XD</span>
+                        <span class="px-3 py-1 bg-blue-50 text-primary text-sm rounded-full font-medium">Framer</span>
+                        <span class="px-3 py-1 bg-blue-50 text-primary text-sm rounded-full font-medium">Principle</span>
                     </div>
                 </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">⚡</div>
-                    <h3>パフォーマンス最適化</h3>
-                    <p>Core Web Vitalsを考慮したWebサイトの速度最適化とSEO対策</p>
-                    <div class="service-tags">
-                        <span class="service-tag">Lighthouse</span>
-                        <span class="service-tag">WebPageTest</span>
-                        <span class="service-tag">Core Web Vitals</span>
-                        <span class="service-tag">SEO</span>
+
+                <!-- Performance Optimization Card -->
+                <div class="bg-white rounded-lg p-8 shadow-md transition-transform duration-300 hover:-translate-y-1">
+                    <div class="mb-6">
+                        <svg class="w-12 h-12 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-text-primary mb-4">
+                        パフォーマンス最適化
+                    </h3>
+                    <p class="text-text-secondary mb-6 leading-relaxed">
+                        Core Web Vitalsを考慮したWebサイトの速度最適化とSEO対策
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-blue-50 text-primary text-sm rounded-full font-medium">Lighthouse</span>
+                        <span class="px-3 py-1 bg-blue-50 text-primary text-sm rounded-full font-medium">WebPageTest</span>
+                        <span class="px-3 py-1 bg-blue-50 text-primary text-sm rounded-full font-medium">Core Web Vitals</span>
+                        <span class="px-3 py-1 bg-blue-50 text-primary text-sm rounded-full font-medium">SEO</span>
                     </div>
                 </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">✨</div>
-                    <h3>アニメーション開発</h3>
-                    <p>Framer Motionやthree.jsを使用したインタラクティブアニメーション</p>
-                    <div class="service-tags">
-                        <span class="service-tag">Framer Motion</span>
-                        <span class="service-tag">Three.js</span>
-                        <span class="service-tag">GSAP</span>
-                        <span class="service-tag">Lottie</span>
+
+                <!-- Animation Development Card -->
+                <div class="bg-white rounded-lg p-8 shadow-md transition-transform duration-300 hover:-translate-y-1">
+                    <div class="mb-6">
+                        <svg class="w-12 h-12 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-text-primary mb-4">
+                        アニメーション開発
+                    </h3>
+                    <p class="text-text-secondary mb-6 leading-relaxed">
+                        Framer Motionやthree.jsを使用したインタラクティブアニメーション
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-blue-50 text-primary text-sm rounded-full font-medium">Framer Motion</span>
+                        <span class="px-3 py-1 bg-blue-50 text-primary text-sm rounded-full font-medium">Three.js</span>
+                        <span class="px-3 py-1 bg-blue-50 text-primary text-sm rounded-full font-medium">GSAP</span>
+                        <span class="px-3 py-1 bg-blue-50 text-primary text-sm rounded-full font-medium">Lottie</span>
                     </div>
                 </div>
             </div>
-            
-            <div style="text-align: center;">
-                <a href="#contact" class="cta-button">詳しく見る</a>
+
+            <div class="text-center mt-16">
+                <button class="bg-primary hover:bg-primary-hover text-white font-semibold px-8 py-3 rounded-lg transition-colors duration-200">
+                    詳しく見る
+                </button>
             </div>
         </div>
     </section>
+
+    <!-- About Section -->
+    <section id="about" class="bg-white py-24">
+        <div class="max-w-5xl mx-auto px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl font-bold text-text-primary mb-6">
+                        About FreshJelly
+                    </h2>
+                    <p class="text-lg text-text-secondary mb-6 leading-relaxed">
+                        私たちは、技術的な専門知識と創造的なビジョンを組み合わせて、
+                        お客様のデジタルプレゼンスを次のレベルに引き上げることを使命としています。
+                    </p>
+                    <p class="text-text-secondary mb-8 leading-relaxed">
+                        最新のフロントエンド技術とユーザー中心設計の原則に基づいて、
+                        美しく機能的なウェブエクスペリエンスを創造します。
+                    </p>
+                    <button class="bg-primary hover:bg-primary-hover text-white font-semibold px-6 py-3 rounded-lg transition-colors duration-200">
+                        もっと詳しく
+                    </button>
+                </div>
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl p-8 h-80 flex items-center justify-center">
+                    <div class="text-center">
+                        <div class="w-24 h-24 bg-primary rounded-full mx-auto mb-4 flex items-center justify-center">
+                            <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-text-primary mb-2">
+                            Innovation
+                        </h3>
+                        <p class="text-text-secondary">
+                            革新的なアプローチで<br>
+                            お客様の課題を解決します
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="bg-slate-50 py-24">
+        <div class="max-w-5xl mx-auto px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold text-text-primary mb-4">
+                    お問い合わせ
+                </h2>
+                <p class="text-lg text-text-secondary mb-12 max-w-2xl mx-auto">
+                    プロジェクトのご相談やお見積もりなど、お気軽にお問い合わせください。
+                    あなたのアイデアを一緒に形にしましょう。
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-primary rounded-full mx-auto mb-4 flex items-center justify-center">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="font-bold text-text-primary mb-2">Email</h3>
+                        <p class="text-text-secondary">hello@freshjelly.dev</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-primary rounded-full mx-auto mb-4 flex items-center justify-center">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="font-bold text-text-primary mb-2">電話</h3>
+                        <p class="text-text-secondary">03-1234-5678</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-primary rounded-full mx-auto mb-4 flex items-center justify-center">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="font-bold text-text-primary mb-2">所在地</h3>
+                        <p class="text-text-secondary">東京都渋谷区</p>
+                    </div>
+                </div>
+                <button class="bg-primary hover:bg-primary-hover text-white font-semibold px-8 py-3 rounded-lg transition-colors duration-200">
+                    お問い合わせフォーム
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-text-primary text-white py-12">
+        <div class="max-w-5xl mx-auto px-6 lg:px-8">
+            <div class="text-center">
+                <div class="font-bold text-2xl mb-4">FreshJelly</div>
+                <p class="text-gray-400 mb-6">Digital Craftsmanship with a Human Touch</p>
+                <div class="flex justify-center space-x-6 mb-8">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                    </a>
+                </div>
+                <p class="text-gray-400 text-sm">
+                    © 2024 FreshJelly. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
 
     <script>
         // Smooth scrolling for navigation links
@@ -582,23 +317,14 @@
 
         // Navigation background change on scroll
         window.addEventListener('scroll', () => {
-            const nav = document.querySelector('.nav');
+            const nav = document.querySelector('nav');
             if (window.scrollY > 100) {
-                nav.style.background = 'rgba(26, 32, 44, 0.98)';
+                nav.classList.add('bg-white');
+                nav.classList.remove('bg-white/95');
             } else {
-                nav.style.background = 'rgba(26, 32, 44, 0.95)';
+                nav.classList.add('bg-white/95');
+                nav.classList.remove('bg-white');
             }
-        });
-
-        // Service card hover effects
-        document.querySelectorAll('.service-card').forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transform = 'translateY(-10px)';
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'translateY(0)';
-            });
         });
     </script>
 </body>
