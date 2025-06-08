@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreshJelly - Digital Craftsmanship with a Human Touch</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: #1A202C;
+            color: #F7FAFC;
+            overflow-x: hidden;
+        }
+        
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26, 32, 44, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #F7FAFC;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .logo:hover {
+            color: #4299E1;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: #F7FAFC;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #4299E1, #ED8936);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-links a:hover {
+            color: #ED8936;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #1A202C 0%, #2D3748 50%, #1A202C 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 25%;
+            left: 25%;
+            width: 300px;
+            height: 300px;
+            background: rgba(66, 153, 225, 0.1);
+            border-radius: 50%;
+            filter: blur(100px);
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 25%;
+            right: 25%;
+            width: 400px;
+            height: 400px;
+            background: rgba(237, 137, 54, 0.1);
+            border-radius: 50%;
+            filter: blur(100px);
+        }
+        
+        .hero-content {
+            text-align: center;
+            z-index: 10;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, #F7FAFC, #4299E1, #ED8936, #F7FAFC);
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            color: rgba(247, 250, 252, 0.8);
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+        
+        .cube-container {
+            position: absolute;
+            right: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+            animation: fadeInRight 1.5s ease-out;
+        }
+        
+        .cube {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotateCube 20s infinite linear;
+        }
+        
+        .cube-face {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: rgba(66, 153, 225, 0.2);
+            border: 2px solid #4299E1;
+            backdrop-filter: blur(10px);
+        }
+        
+        .front { transform: rotateY(0deg) translateZ(100px); }
+        .back { transform: rotateY(180deg) translateZ(100px); }
+        .right { transform: rotateY(90deg) translateZ(100px); }
+        .left { transform: rotateY(-90deg) translateZ(100px); }
+        .top { transform: rotateX(90deg) translateZ(100px); }
+        .bottom { transform: rotateX(-90deg) translateZ(100px); }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: rgba(247, 250, 252, 0.7);
+            animation: fadeInUp 1s ease-out 1s both;
+        }
+        
+        .scroll-text {
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+        }
+        
+        .scroll-line {
+            width: 1px;
+            height: 3rem;
+            background: linear-gradient(to bottom, #4299E1, transparent);
+            margin-bottom: 0.5rem;
+        }
+        
+        .scroll-dot {
+            width: 8px;
+            height: 8px;
+            background: #4299E1;
+            border-radius: 50%;
+            animation: bounce 2s infinite;
+        }
+        
+        /* Services Section */
+        .services {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #F7FAFC 0%, #FFFFFF 50%, #F7FAFC 100%);
+            padding: 5rem 2rem;
+            position: relative;
+        }
+        
+        .services::before {
+            content: '';
+            position: absolute;
+            top: 5rem;
+            left: 2.5rem;
+            width: 300px;
+            height: 300px;
+            background: rgba(66, 153, 225, 0.05);
+            border-radius: 50%;
+            filter: blur(100px);
+        }
+        
+        .services::after {
+            content: '';
+            position: absolute;
+            bottom: 5rem;
+            right: 2.5rem;
+            width: 400px;
+            height: 400px;
+            background: rgba(237, 137, 54, 0.05);
+            border-radius: 50%;
+            filter: blur(100px);
+        }
+        
+        .services-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .services-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .services h2 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #1A202C;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #1A202C, #4299E1, #ED8936);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .services-subtitle {
+            font-size: 1.25rem;
+            color: #4A5568;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+        
+        .service-card {
+            background: #FFFFFF;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #4299E1, #ED8936);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+        
+        .service-card:hover .service-icon {
+            transform: scale(1.1);
+        }
+        
+        .service-card h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1A202C;
+            margin-bottom: 1rem;
+            transition: color 0.3s ease;
+        }
+        
+        .service-card:hover h3 {
+            color: #4299E1;
+        }
+        
+        .service-card p {
+            color: #4A5568;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .service-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .service-tag {
+            padding: 0.5rem 1rem;
+            background: linear-gradient(90deg, rgba(66, 153, 225, 0.1), rgba(237, 137, 54, 0.1));
+            color: #2D3748;
+            font-size: 0.875rem;
+            border-radius: 9999px;
+            font-weight: 500;
+            border: 1px solid rgba(66, 153, 225, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .service-card:hover .service-tag {
+            background: linear-gradient(90deg, rgba(66, 153, 225, 0.2), rgba(237, 137, 54, 0.2));
+            transform: scale(1.05);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            margin-top: 3rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(90deg, #4299E1, #ED8936);
+            color: white;
+            font-weight: 600;
+            border-radius: 9999px;
+            text-decoration: none;
+            box-shadow: 0 10px 20px rgba(66, 153, 225, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(66, 153, 225, 0.4);
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px) translateY(-50%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) translateY(-50%);
+            }
+        }
+        
+        @keyframes rotateCube {
+            from {
+                transform: rotateX(0deg) rotateY(0deg);
+            }
+            to {
+                transform: rotateX(360deg) rotateY(360deg);
+            }
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .cube-container {
+                display: none;
+            }
+            
+            .services h2 {
+                font-size: 2.5rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="#" class="logo">FreshJelly</a>
+            <ul class="nav-links">
+                <li><a href="#home">HOME</a></li>
+                <li><a href="#about">ABOUT</a></li>
+                <li><a href="#work">WORK</a></li>
+                <li><a href="#blog">BLOG</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>アイデアを、<br/>コードで形に。</h1>
+            <p>Digital Craftsmanship with a Human Touch</p>
+        </div>
+        
+        <div class="cube-container">
+            <div class="cube">
+                <div class="cube-face front"></div>
+                <div class="cube-face back"></div>
+                <div class="cube-face right"></div>
+                <div class="cube-face left"></div>
+                <div class="cube-face top"></div>
+                <div class="cube-face bottom"></div>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <span class="scroll-text">SCROLL</span>
+            <div class="scroll-line"></div>
+            <div class="scroll-dot"></div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="services-container">
+            <div class="services-header">
+                <h2>Services</h2>
+                <p class="services-subtitle">
+                    最新技術と創造性を融合させ、あなたのビジョンを現実に変える<br/>
+                    プロフェッショナルなデジタルソリューションを提供します
+                </p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🚀</div>
+                    <h3>ウェブ開発</h3>
+                    <p>モダンな技術スタックを使用したレスポンシブWebアプリケーションの設計・開発</p>
+                    <div class="service-tags">
+                        <span class="service-tag">React</span>
+                        <span class="service-tag">Next.js</span>
+                        <span class="service-tag">TypeScript</span>
+                        <span class="service-tag">TailwindCSS</span>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🎨</div>
+                    <h3>UI/UXデザイン</h3>
+                    <p>ユーザー中心設計に基づいた直感的で美しいインターフェースデザイン</p>
+                    <div class="service-tags">
+                        <span class="service-tag">Figma</span>
+                        <span class="service-tag">Adobe XD</span>
+                        <span class="service-tag">Framer</span>
+                        <span class="service-tag">Principle</span>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">⚡</div>
+                    <h3>パフォーマンス最適化</h3>
+                    <p>Core Web Vitalsを考慮したWebサイトの速度最適化とSEO対策</p>
+                    <div class="service-tags">
+                        <span class="service-tag">Lighthouse</span>
+                        <span class="service-tag">WebPageTest</span>
+                        <span class="service-tag">Core Web Vitals</span>
+                        <span class="service-tag">SEO</span>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">✨</div>
+                    <h3>アニメーション開発</h3>
+                    <p>Framer Motionやthree.jsを使用したインタラクティブアニメーション</p>
+                    <div class="service-tags">
+                        <span class="service-tag">Framer Motion</span>
+                        <span class="service-tag">Three.js</span>
+                        <span class="service-tag">GSAP</span>
+                        <span class="service-tag">Lottie</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center;">
+                <a href="#contact" class="cta-button">詳しく見る</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navigation background change on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(26, 32, 44, 0.98)';
+            } else {
+                nav.style.background = 'rgba(26, 32, 44, 0.95)';
+            }
+        });
+
+        // Service card hover effects
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>

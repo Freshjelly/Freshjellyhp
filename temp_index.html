@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreshJelly Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+        
+        .service-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #4ecdc4;
+        }
+        
+        .service-card p {
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        
+        .cube {
+            width: 100px;
+            height: 100px;
+            margin: 2rem auto;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotate 10s infinite linear;
+        }
+        
+        .cube-face {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: rgba(78, 205, 196, 0.8);
+            border: 2px solid #4ecdc4;
+        }
+        
+        .front { transform: rotateY(0deg) translateZ(50px); }
+        .back { transform: rotateY(180deg) translateZ(50px); }
+        .right { transform: rotateY(90deg) translateZ(50px); }
+        .left { transform: rotateY(-90deg) translateZ(50px); }
+        .top { transform: rotateX(90deg) translateZ(50px); }
+        .bottom { transform: rotateX(-90deg) translateZ(50px); }
+        
+        @keyframes rotate {
+            from { transform: rotateX(0deg) rotateY(0deg); }
+            to { transform: rotateX(360deg) rotateY(360deg); }
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+        
+        .nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="nav">
+            <a href="#home">ホーム</a>
+            <a href="#about">About</a>
+            <a href="#work">Work</a>
+            <a href="#blog">Blog</a>
+        </nav>
+        
+        <div class="hero">
+            <div class="cube">
+                <div class="cube-face front"></div>
+                <div class="cube-face back"></div>
+                <div class="cube-face right"></div>
+                <div class="cube-face left"></div>
+                <div class="cube-face top"></div>
+                <div class="cube-face bottom"></div>
+            </div>
+            <h1>FreshJelly</h1>
+            <p>Creative Digital Solutions</p>
+        </div>
+        
+        <div class="services">
+            <div class="service-card">
+                <h3>Web開発</h3>
+                <p>モダンなWebサイトとWebアプリケーションの開発。React、Next.js、TypeScriptを使用した高品質なソリューションを提供します。</p>
+            </div>
+            
+            <div class="service-card">
+                <h3>3Dデザイン</h3>
+                <p>Three.jsを活用したインタラクティブな3D体験の制作。視覚的に魅力的なWebサイトで、ユーザーエンゲージメントを向上させます。</p>
+            </div>
+            
+            <div class="service-card">
+                <h3>UI/UXデザイン</h3>
+                <p>ユーザー中心のデザインアプローチで、直感的で美しいインターフェースを設計。Figmaを使用したプロトタイピングから実装まで。</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
