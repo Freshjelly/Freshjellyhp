@@ -1,0 +1,3 @@
+[submodule "freshjelly-site"]
+	path = freshjelly-site
+	url = https://github.com/Freshjelly/Freshjellyhp.git
