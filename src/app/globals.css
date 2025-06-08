@@ -1,0 +1,63 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Primary Colors */
+  --color-dark-navy: #1A202C;
+  --color-dark-navy-light: #2D3748;
+  --color-off-white: #F7FAFC;
+  --color-gray: #A0AEC0;
+  
+  /* Accent Colors */
+  --color-trust-blue: #4299E1;
+  --color-trust-blue-hover: #3182CE;
+  --color-warm-orange: #ED8936;
+  --color-warm-orange-hover: #DD6B20;
+  
+  /* Gradient Definitions */
+  --gradient-primary: linear-gradient(135deg, var(--color-dark-navy) 0%, var(--color-dark-navy-light) 100%);
+  --gradient-accent: linear-gradient(90deg, var(--color-trust-blue) 0%, var(--color-warm-orange) 100%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* アニメーション配慮 */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* スクロールバーのスタイリング */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-dark-navy-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-trust-blue);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-trust-blue-hover);
+}
