@@ -78,8 +78,27 @@
 ### 前提条件
 - Node.js 18.0.0 以上
 - npm または yarn
+- Git
 
-### クローン・インストール
+### 🪟 Windows ユーザー向け
+
+**自動セットアップ（推奨）**:
+```powershell
+# PowerShell
+git clone https://github.com/Freshjelly/Freshjellyhp.git
+cd Freshjellyhp
+.\setup-windows.ps1
+
+# または コマンドプロンプト
+git clone https://github.com/Freshjelly/Freshjellyhp.git
+cd Freshjellyhp
+setup-windows.bat
+```
+
+**詳細ガイド**: [WINDOWS_SETUP.md](WINDOWS_SETUP.md) を参照
+
+### 🍎 macOS / 🐧 Linux
+
 ```bash
 # リポジトリをクローン
 git clone https://github.com/Freshjelly/Freshjellyhp.git
