@@ -53,12 +53,14 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
               <source src={project.video} type="video/mp4" />
             </video>
           ) : project.image ? (
-            // 画像が設定されている場合
-            <img
-              src={project.image}
-              alt={project.title}
-              className="absolute inset-0 w-full h-full object-cover"
-            />
+            <>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={project.image}
+                alt={project.title}
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            </>
           ) : (
             // プレースホルダー画像として gradientを使用
             <div className="absolute inset-0 bg-gradient-to-br from-trust-blue via-trust-blue-hover to-warm-orange" />

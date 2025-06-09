@@ -104,7 +104,7 @@ export default function Hero() {
   const cubeOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0])
   const cubeScale = useTransform(scrollYProgress, [0, 0.25], [1, 0.8])
   const cubeZ = useTransform(scrollYProgress, [0, 0.25], [0, -50])
-  const bgColorOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+  // const bgColorOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const { clientX, clientY } = e
