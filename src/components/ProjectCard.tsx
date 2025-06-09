@@ -38,11 +38,31 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
       onHoverEnd={() => setIsHovered(false)}
       className="group cursor-pointer"
     >
-      <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 relative">
+      <div className="bg-white rounded-xl overflow-hidden shadow-[0_4px_6px_rgba(0,0,0,0.1)] hover:shadow-[0_20px_25px_rgba(0,0,0,0.15)] transition-all duration-300 relative w-full max-w-[400px] mx-auto">
         {/* 画像/動画セクション */}
         <div className="relative aspect-video overflow-hidden bg-gray-100">
-          {/* プレースホルダー画像として gradientを使用 */}
-          <div className="absolute inset-0 bg-gradient-to-br from-trust-blue via-trust-blue-hover to-warm-orange" />
+          {/* 動画が設定されている場合 */}
+          {isHovered && project.video ? (
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover opacity-70"
+            >
+              <source src={project.video} type="video/mp4" />
+            </video>
+          ) : project.image ? (
+            // 画像が設定されている場合
+            <img
+              src={project.image}
+              alt={project.title}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          ) : (
+            // プレースホルダー画像として gradientを使用
+            <div className="absolute inset-0 bg-gradient-to-br from-trust-blue via-trust-blue-hover to-warm-orange" />
+          )}
           
           {/* ホバー時のオーバーレイ効果 */}
           <motion.div

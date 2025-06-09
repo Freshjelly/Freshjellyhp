@@ -1,5 +1,7 @@
 'use client'
 
+import { useState } from 'react'
+import { motion } from 'framer-motion'
 import ProjectCard from '@/components/ProjectCard'
 import { ScrollReveal } from '@/components/ScrollAnimations'
 
@@ -67,6 +69,13 @@ const projects = [
 const categories = ['All', 'Web Development', 'UI/UX Design', 'Web Application', 'Data Visualization', 'Mobile Development']
 
 export default function WorkPage() {
+  const [selectedCategory, setSelectedCategory] = useState('All')
+  
+  // カテゴリーに基づいてプロジェクトをフィルタリング
+  const filteredProjects = selectedCategory === 'All' 
+    ? projects 
+    : projects.filter(project => project.category === selectedCategory)
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-off-white via-white to-off-white pt-20">
       {/* ヘッダーセクション */}
@@ -93,17 +102,20 @@ export default function WorkPage() {
           {/* カテゴリーフィルター */}
           <ScrollReveal delay={0.2}>
             <div className="flex flex-wrap justify-center gap-4 mt-12">
-              {categories.map((category, index) => (
-                <button
+              {categories.map((category) => (
+                <motion.button
                   key={category}
+                  onClick={() => setSelectedCategory(category)}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                   className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${
-                    index === 0 
+                    selectedCategory === category 
                       ? 'bg-gradient-to-r from-trust-blue to-warm-orange text-white shadow-lg'
                       : 'bg-white text-dark-navy hover:bg-trust-blue hover:text-white shadow-md hover:shadow-lg'
                   }`}
                 >
                   {category}
-                </button>
+                </motion.button>
               ))}
             </div>
           </ScrollReveal>
@@ -113,15 +125,30 @@ export default function WorkPage() {
       {/* プロジェクトグリッド */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
-              <ProjectCard 
-                key={project.id} 
-                project={project} 
-                index={index} 
-              />
+          <motion.div 
+            layout
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
+            {filteredProjects.map((project, index) => (
+              <motion.div
+                key={project.id}
+                layout
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{
+                  opacity: { duration: 0.3 },
+                  scale: { duration: 0.3 },
+                  layout: { duration: 0.5 }
+                }}
+              >
+                <ProjectCard 
+                  project={project} 
+                  index={index} 
+                />
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 

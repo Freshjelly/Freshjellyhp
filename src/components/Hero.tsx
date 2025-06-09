@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import dynamic from 'next/dynamic'
 
 // 3Dコンポーネントを動的インポート（SSR回避）
@@ -98,6 +98,13 @@ const ParticleBackground = () => {
 
 export default function Hero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const { scrollYProgress } = useScroll()
+  
+  // スクロールアニメーション用のtransform値
+  const cubeOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0])
+  const cubeScale = useTransform(scrollYProgress, [0, 0.25], [1, 0.8])
+  const cubeZ = useTransform(scrollYProgress, [0, 0.25], [0, -50])
+  const bgColorOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const { clientX, clientY } = e
@@ -117,11 +124,18 @@ export default function Hero() {
       <ParticleBackground />
       
       {/* 3Dオブジェクト */}
-      <div className="absolute inset-0 flex items-center justify-center">
+      <motion.div 
+        className="absolute inset-0 flex items-center justify-center"
+        style={{ 
+          opacity: cubeOpacity,
+          scale: cubeScale,
+          z: cubeZ
+        }}
+      >
         <div className="w-96 h-96 max-w-[80vw] max-h-[80vw]">
           <CubeFormation />
         </div>
-      </div>
+      </motion.div>
 
       {/* パララックス背景要素 */}
       <motion.div

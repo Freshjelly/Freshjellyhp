@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
+    "dev": "next dev --turbopack --max-old-space-size=4096",
+    "build": "next build --max-old-space-size=8192",
     "start": "next start",
     "lint": "next lint"
   },

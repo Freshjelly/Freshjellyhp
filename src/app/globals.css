@@ -2,7 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap');
+
+:root {
+  /* プライマリカラー */
+  --color-dark-navy: #1A202C;
+  --color-dark-navy-light: #2D3748;
+  --color-off-white: #F7FAFC;
+  --color-gray: #A0AEC0;
+  
+  /* アクセントカラー */
+  --color-trust-blue: #4299E1;
+  --color-trust-blue-hover: #3182CE;
+  --color-warm-orange: #ED8936;
+  --color-warm-orange-hover: #DD6B20;
+  
+  /* グラデーション定義 */
+  --gradient-primary: linear-gradient(135deg, var(--color-dark-navy) 0%, var(--color-dark-navy-light) 100%);
+  --gradient-accent: linear-gradient(90deg, var(--color-trust-blue) 0%, var(--color-warm-orange) 100%);
+}
 
 @layer base {
   html {
@@ -13,6 +31,10 @@
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     line-height: 1.6;
     overflow-x: hidden;
+  }
+  
+  .font-noto-sans {
+    font-family: 'Noto Sans JP', sans-serif;
   }
   
   * {
